@@ -11,7 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnSystemUiVisibilityChangeListener{
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private RelativeLayout relativeLayout;
@@ -25,21 +25,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         relativeLayout = (RelativeLayout) findViewById(R.id.activity_main);
 
-        //Button button1 = (Button) findViewById(R.id.button1);
-        //Button button2 = (Button) findViewById(R.id.button2);
-        //button1.setOnClickListener(this);
-        //button2.setOnClickListener(this);
-        //button2.setOnClickListener(this.sendEmail());
+        //Button button1 = (Button) findViewById(R.id.submit);
 
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
-        submitBtn = (Button) findViewById(R.id.submit);
+
     }
 
     @Override
     public void onClick(View v) {
         //this.relativeLayout.setBackgroundColor(Color.GREEN);
         //Log.i(TAG, v.getId() +" - "+ R.id.button1 + " BckgColor: "+Color.GREEN);
+    }
+
+    public void onSystemUiVisibilityChange(int visibility){
+
     }
 
     private View.OnClickListener sendEmail(){
@@ -52,18 +52,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-
-    public void changeBckgToGhGreen(View view) {
-        this.relativeLayout.setBackgroundColor(0xFF24B5B8);
-    }
+//    public void changeBckgToGhGreen(View view) {
+//        this.relativeLayout.setBackgroundColor(0xFF24B5B8);
+//    }
 
     public void submitLogin(View view) {
-        Intent goToSecondStep = new Intent(this, SecondStepActivity.class);
+        Intent secondStep = new Intent(this, SecondStepActivity.class);
+        //Intent secondStep = new Intent(Intent.ACTION_VIEW);
 
         Bundle data = new Bundle();
-        data.putString("user", username.getText().toString());
-        data.putString("password", password.getText().toString());
+        data.putString(LoginKeys.USERNAME, username.getText().toString());
+        data.putString(LoginKeys.PASSWORD, password.getText().toString());
 
-        startActivity(goToSecondStep);
+        secondStep.putExtras(data);
+        startActivity(secondStep);
     }
 }

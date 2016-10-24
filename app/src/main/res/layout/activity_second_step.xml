@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_second_step"
@@ -10,11 +10,27 @@
 >
 
     <TextView
-        android:id="@+id/data"
+        android:id="@+id/b_username"
         android:text="username"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:textSize="10pt"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
     />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/b_password"
+        android:layout_below="@+id/b_username"
+        android:text="password"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="10pt"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+    />
+
+
+</RelativeLayout>

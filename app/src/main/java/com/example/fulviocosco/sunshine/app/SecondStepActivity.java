@@ -12,16 +12,21 @@ import android.widget.TextView;
 
 public class SecondStepActivity extends AppCompatActivity {
 
-    TextView dataView;
+    TextView b_username;
+    TextView b_password;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second_step);
 
-        dataView = (TextView) findViewById(R.id.data);
+        b_username = (TextView) findViewById(R.id.b_username);
+        b_password = (TextView) findViewById(R.id.b_password);
+
         Intent intent = getIntent();
-        Bundle response = intent.getExtras();
+        Bundle data = intent.getExtras();
+        b_username.setText(data.getString(LoginKeys.USERNAME, "No username"));
+        b_password.setText(data.getString(LoginKeys.PASSWORD, ""));
 
     }
 }
