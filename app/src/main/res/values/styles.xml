@@ -8,7 +8,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowFullscreen">true</item>
-        <item name="android:navigationBarColor">#FF9999</item>
+        <item name="android:windowBackground">@color/baseColor</item>
+        <item name="android:navigationBarColor">@color/baseColor</item>
     </style>
 
 </resources>

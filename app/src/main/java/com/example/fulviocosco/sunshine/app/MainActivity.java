@@ -17,6 +17,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RelativeLayout relativeLayout;
     private Button submitBtn;
     private EditText username, password;
+    private MyUser mu;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         relativeLayout = (RelativeLayout) findViewById(R.id.activity_main);
 
         //Button button1 = (Button) findViewById(R.id.submit);
-
         username = (EditText) findViewById(R.id.username);
         password = (EditText) findViewById(R.id.password);
 
@@ -57,14 +58,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    }
 
     public void submitLogin(View view) {
-        Intent secondStep = new Intent(this, SecondStepActivity.class);
         //Intent secondStep = new Intent(Intent.ACTION_VIEW);
 
-        Bundle data = new Bundle();
-        data.putString(LoginKeys.USERNAME, username.getText().toString());
-        data.putString(LoginKeys.PASSWORD, password.getText().toString());
+        //Bundle data = new Bundle();
+        //data.putString(LoginKeys.USERNAME, username.getText().toString());
+        //data.putString(LoginKeys.PASSWORD, password.getText().toString());
+        //secondStep.putExtra(LoginKeys.PASSWORD, password.getText().toString() + "__");
 
-        secondStep.putExtras(data);
+        Intent secondStep = new Intent(this, SecondStepActivity.class);
+        mu = new MyUser(
+                username.getText().toString(),
+                password.getText().toString()
+        );
+
+        secondStep.putExtra("MyUser", mu);
+        //secondStep.putExtras(data);
+        Log.i(100 +": "+ mu.getUserName(), mu.getPassword());
         startActivity(secondStep);
     }
 }
