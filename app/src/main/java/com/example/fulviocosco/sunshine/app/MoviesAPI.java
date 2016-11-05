@@ -1,7 +1,5 @@
 package com.example.fulviocosco.sunshine.app;
 
-import org.json.JSONObject;
-
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -14,9 +12,12 @@ import retrofit2.http.Query;
 public interface MoviesAPI {
 
     @GET("movie/{movie_id}")
-    Call<JSONObject> getMovie(@Path("movie_id") int id, @Query("api_key") String api_key);
+    Call<Movie> getMovie(@Query("api_key") String api_key, @Path("movie_id") int id);
 
     @GET("movie/popular")
-    Call<JSONObject> getPopular(@Query("api_key") String api_key);
+    Call<MovieResults> getPopular(@Query("api_key") String api_key);
+
+    @GET("movie/top_rated")
+    Call<MovieResults> getTopRated(@Query("api_key") String api_key);
 
 }

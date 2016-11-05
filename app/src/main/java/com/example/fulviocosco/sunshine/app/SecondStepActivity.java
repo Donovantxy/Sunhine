@@ -53,26 +53,24 @@ public class SecondStepActivity extends AppCompatActivity {
 
         // api_key=c4637c00d2d0a9d2d183af069b0c7c21
 
-        String BASE_URL = "https://api.themoviedb.org/3/";
-        String API_KEY = "?api_key=4637c00d2d0a9d2d183af069b0c7c21";
+        Retrofit apiClient = ApiClient.getClient();
 
-        Retrofit client = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .build();
+        MoviesAPI movieApi = apiClient.create(MoviesAPI.class);
 
-        MoviesAPI movieApi = client.create(MoviesAPI.class);
-        //Call<JSONObject> call = movieApi.getPopular(API_KEY);
-        /*call.enqueue(new Callback<JSONObject>() {
+        Call<MovieResults> call = movieApi.getTopRated(ApiClient.KEY_API);
+        call.enqueue(new Callback<MovieResults>() {
             @Override
-            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-                //Log.d( SecondStepActivity.class.getSimpleName(), response.body().toString() );
+            public void onResponse(Call<MovieResults> call, Response<MovieResults> response) {
+                System.out.println("RESPONSE: "+ response.body().toString());
+                //Log.d("Response", response.body().getTotal_result());
             }
 
             @Override
-            public void onFailure(Call<JSONObject> call, Throwable t) {
-                Log.e(SecondStepActivity.class.getSimpleName(), t.toString());
+            public void onFailure(Call<MovieResults> call, Throwable t) {
+                Log.e("Error", t.toString());
             }
-        });*/
+        });
+
 
     }
 }
