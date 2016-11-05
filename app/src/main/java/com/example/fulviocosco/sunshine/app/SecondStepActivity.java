@@ -13,6 +13,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by fulviocosco on 20/10/2016.
@@ -54,25 +55,34 @@ public class SecondStepActivity extends AppCompatActivity {
         // api_key=c4637c00d2d0a9d2d183af069b0c7c21
 
         String BASE_URL = "https://api.themoviedb.org/3/";
-        String API_KEY = "?api_key=4637c00d2d0a9d2d183af069b0c7c21";
+        String API_KEY = "c4637c00d2d0a9d2d183af069b0c7c21";
 
         Retrofit client = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         MoviesAPI movieApi = client.create(MoviesAPI.class);
-        //Call<JSONObject> call = movieApi.getPopular(API_KEY);
-        /*call.enqueue(new Callback<JSONObject>() {
+        Call<MoviePopular> call = movieApi.getPopular(API_KEY);
+        //Log.d(SecondStepActivity.class.getSimpleName(), call.);
+        call.enqueue(new Callback<MoviePopular>() {
+            /**
+                Call obj: call.delegate.serviceMethod
+                    - baseUrl
+                    - httpMethod
+                    -
+            */
+
             @Override
-            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-                //Log.d( SecondStepActivity.class.getSimpleName(), response.body().toString() );
+            public void onResponse(Call<MoviePopular> call, Response<MoviePopular> response) {
+                Log.d( SecondStepActivity.class.getSimpleName(), response.body().getTotal_results() + "" );
             }
 
             @Override
-            public void onFailure(Call<JSONObject> call, Throwable t) {
+            public void onFailure(Call<MoviePopular> call, Throwable t) {
                 Log.e(SecondStepActivity.class.getSimpleName(), t.toString());
             }
-        });*/
+        });
 
     }
 }

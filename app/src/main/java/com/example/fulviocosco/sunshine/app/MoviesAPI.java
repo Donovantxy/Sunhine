@@ -13,10 +13,10 @@ import retrofit2.http.Query;
 
 public interface MoviesAPI {
 
-    @GET("movie/{movie_id}")
-    Call<JSONObject> getMovie(@Path("movie_id") int id, @Query("api_key") String api_key);
+    //@GET("movie/{movie_id}")
+    //Call<JSONObject> getMovie(@Path("movie_id") int id, @Query("api_key") String api_key);
 
     @GET("movie/popular")
-    Call<JSONObject> getPopular(@Query("api_key") String api_key);
+    Call<MoviePopular> getPopular(@Query("api_key") String api_key);
 
 }
