@@ -1,5 +1,8 @@
 package com.example.fulviocosco.sunshine.app;
 
+import com.example.fulviocosco.sunshine.app.rest.model.MovieResults;
+import com.google.gson.JsonObject;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -19,5 +22,8 @@ public interface MoviesAPI {
 
     @GET("movie/top_rated")
     Call<MovieResults> getTopRated(@Query("api_key") String api_key);
+
+    @GET("movie/top_rated")
+    Call<JsonObject> getTopRatedJson(@Query("api_key") String api_key);
 
 }

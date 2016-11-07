@@ -1,19 +1,25 @@
-package com.example.fulviocosco.sunshine.app;
+package com.example.fulviocosco.sunshine.app.rest.model;
+import com.example.fulviocosco.sunshine.app.Movie;
+import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import org.parceler.Parcel;
+import java.util.ArrayList;
+
 
 /**
  * Created by fulviocosco on 01/11/2016.
  */
 
+@Parcel
 public class MovieResults {
 
     private int page;
-    private List<Movie> results;
+    private ArrayList<Movie> results;
     private int total_result;
     private int total_pages;
 
-    public List<Movie> getResults() {
+    @SerializedName("Movies")
+    public ArrayList<Movie> getResults() {
         return results;
     }
 
@@ -33,7 +39,7 @@ public class MovieResults {
         this.page = page;
     }
 
-    public void setResults(List<Movie> results) {
+    public void setResults(ArrayList<Movie> results) {
         this.results = results;
     }
 
