@@ -3,6 +3,8 @@ package com.example.fulviocosco.sunshine.app;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -13,11 +15,15 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.example.fulviocosco.sunshine.app.rest.RestClient;
+import com.example.fulviocosco.sunshine.app.rest.model.MovieResults;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import java.util.ArrayList;
+
+import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -81,14 +87,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     void getPopularMovies() {
         RestClient client = new RestClient();
-        Disposable subscribe = client.getApiMovie().getTopRated()
+        Observable<MovieResults> topRated = client.getApiMovie().getTopRated()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe( (data) -> {
-                    Log.d("DATA:", data.toString());
-                });
+                .map( (data) -> { return data; });
+
+        topRated.subscribe( (data) -> {
+                    Log.d("DATA:", data.toString() );
+                    ArrayList<Movie> results = data.getResults();
+                    results.forEach(movie -> {
+                        Log.d("MOVIE", movie.toString());
+                    });
+                    Log.d("DATA:", data.getResults().toString() );
+            Log.d("END", "end of debug");
+        });
 
 
     }

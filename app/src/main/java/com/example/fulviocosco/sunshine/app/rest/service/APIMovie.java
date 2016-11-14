@@ -21,13 +21,16 @@ public interface ApiMovie {
 //    @GET("/movie/top_rated")
 //    MovieResults getTopRatedSync(@Query("api_key") String api_key);
 
-    @GET("/movie/popular")
-    Call<MovieResults> getPopular();
+//      @GET("movie/popular")
+//      Call<MovieResults> getPopular();
 
 //    @GET("/movie/top_rated")
 //    Call<MovieResults> getTopRated(@Query("api_key") String api_key);
 
-    @GET("/movie/top_rated")
+    @GET("movie/popular")
+    Observable<MovieResults> getPopular();
+
+    @GET("movie/top_rated")
     Observable<MovieResults> getTopRated();
 
     //for each POST/PUT/DELETE just put before annotations -> @FormUrlEncoded

@@ -5,9 +5,6 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
 
-import io.reactivex.android.plugins.RxAndroidPlugins;
-import io.reactivex.internal.schedulers.RxThreadFactory;
-import io.reactivex.plugins.RxJavaPlugins;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
