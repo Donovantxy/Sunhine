@@ -38,7 +38,8 @@
         android:id="@+id/submit"
         android:layout_below="@+id/password"
         android:onClick="submitLogin"
-    />
+        android:elevation="0dp"
+        android:visibility="visible" />
 
 
 </RelativeLayout>

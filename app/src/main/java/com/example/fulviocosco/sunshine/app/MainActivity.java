@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private GoogleApiClient client2;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,21 +91,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     void getPopularMovies() {
+
         RestClient client = new RestClient();
-        Observable<MovieResults> topRated = client.getApiMovie().getTopRated()
+        //Observable<MovieResults> topRated = client.getApiMovie().getTopRated()
+        Observable<ArrayList<Movie>> topRated = client.getApiMovie().getTopRated()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map( (data) -> { return data; });
+                .map( (data) -> {
+                    Log.i( "INFO MAP",  data.getResults().toString() );
+                    return data.getResults();
+                });
 
-        topRated.subscribe( (data) -> {
-                    Log.d("DATA:", data.toString() );
-                    ArrayList<Movie> results = data.getResults();
-                    results.forEach(movie -> {
-                        Log.d("MOVIE", movie.toString());
-                    });
-                    Log.d("DATA:", data.getResults().toString() );
-            Log.d("END", "end of debug");
-        });
+
+        topRated.flatMapIterable((movie) ->{
+                    Log.i( "INFO Movie",  movie.toString() );
+                    return movie;
+                })
+                .subscribe( (movie) -> {
+                    Character.UnicodeBlock block = Character.UnicodeBlock.of(movie.getTitle().charAt(1));
+                    System.out.println( "OUT: " + block );
+                    boolean isChinese = Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS.equals(block) ||
+                                        Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS.equals(block) ||
+                                        Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A.equals(block);
+                    if( isChinese ){
+                        Log.i("SINGLE MOVIE: ", movie.getId() +" - "+ movie.getTitle() );
+                    }
+                    else{
+                        Log.i("SINGLE MOVIE: ", movie.getId() +" - "+ movie.getOriginal_title() );
+                    }
+                });
+//                .subscribe( (data) -> {
+//                    Log.d("DATA:", data.toString() );
+//                    Log.d("DATA:", data.toString() );
+//                    ArrayList<Movie> results = data.getResults();
+//
+////                    results.forEach(movie -> {
+////                        Log.d("MOVIE", movie.getOriginal_title());
+////                    });
+//
+//                    for(Movie movie : results){
+//                        Log.d("MOVIE: ", movie.getId() +" - "+ movie.getOriginal_title());
+//                    }
+//
+//                    Log.d("DATA:", data.getResults().toString() );
+//            Log.d("END", "end of debug");
+//        });
+
 
 
     }
@@ -114,7 +147,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Bundle data = new Bundle();
         //data.putString(LoginKeys.USERNAME, username.getText().toString());
         //data.putString(LoginKeys.PASSWORD, password.getText().toString());
-        //secondStep.putExtra(LoginKeys.PASSWORD, password.getText().toString() + "__");
+        //seconßdStep.putExtra(LoginKeys.PASSWORD, password.getText().toString() + "__");
 
         Intent secondStep = new Intent(this, SecondStepActivity.class);
         mu = new MyUser(

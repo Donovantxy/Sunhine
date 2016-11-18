@@ -55,7 +55,8 @@ public class SecondStepActivity extends AppCompatActivity {
         //mu = intent.getParcelableExtra("MyUser");
         //Log.i(200 +": "+intent.getStringExtra("usernNme"), intent.getStringExtra("password"));
         //Log.i("Second Activity", ": "+intent.getParcelableExtra("MyUser").toString());
-        //Log.i("Second Activity", ": "+intent.getParcelableExtra("MyUser"));
+        //Log.i("Second Activity", ": "+intent.getParc
+        // elableExtra("MyUser"));
 
         //Bundle data = intent.getExtras();
         //b_username.setText(data.getString(LoginKeys.USERNAME, "No username"));

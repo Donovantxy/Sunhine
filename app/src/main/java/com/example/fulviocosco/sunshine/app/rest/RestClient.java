@@ -1,10 +1,14 @@
 package com.example.fulviocosco.sunshine.app.rest;
 
+import android.util.Log;
+
 import com.example.fulviocosco.sunshine.app.rest.service.ApiMovie;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.io.IOException;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
